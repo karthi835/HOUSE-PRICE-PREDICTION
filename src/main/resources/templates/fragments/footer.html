@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- Reusable Footer Fragment -->
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <!-- ============ FOOTER FRAGMENT ============ -->
+    <footer th:fragment="footer" class="footer" id="main-footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span class="footer-logo">🏠</span>
+                    <h3>PricePredictor<span class="accent">.AI</span></h3>
+                    <p>AI-powered house price predictions using<br>Multiple Linear Regression</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a th:href="@{/}">Home</a></li>
+                        <li><a th:href="@{/predict}">Predict Price</a></li>
+                        <li><a th:href="@{/dashboard}">Dashboard</a></li>
+                    </ul>
+                </div>
+                <div class="footer-info">
+                    <h4>Technology Stack</h4>
+                    <ul>
+                        <li>Java 17 &amp; Spring Boot</li>
+                        <li>Thymeleaf Templates</li>
+                        <li>Linear Regression (ML)</li>
+                        <li>Chart.js Visualization</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 PricePredictor.AI — House Price Prediction System</p>
+                <p class="footer-subtitle">Built with ❤️ using Spring Boot &amp; Machine Learning</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

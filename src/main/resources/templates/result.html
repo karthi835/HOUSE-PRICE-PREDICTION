@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Your AI-powered house price prediction result. View estimated property value and prediction confidence.">
+    <title>Prediction Result — PricePredictor.AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+</head>
+<body>
+    <!-- Navbar -->
+    <div th:replace="~{fragments/header :: navbar}"></div>
+
+    <!-- ============ RESULT SECTION ============ -->
+    <section class="result-section" id="result-section">
+        <div class="container">
+            <!-- Success Animation -->
+            <div class="result-success-icon">
+                <div class="checkmark-circle">
+                    <span class="checkmark">✓</span>
+                </div>
+            </div>
+
+            <h1 class="result-heading">Prediction <span class="gradient-text">Complete</span></h1>
+            <p class="result-subheading">Here's the estimated value of your property</p>
+
+            <!-- Price Display -->
+            <div class="price-display" id="price-display">
+                <div class="price-label">Estimated Price</div>
+                <div class="price-amount" id="price-amount" 
+                     th:attr="data-price=${predictionResult.predictedPrice}">
+                    <span th:text="${predictionResult.formattedPrice}">₹0</span>
+                </div>
+                <div class="confidence-badge" 
+                     th:classappend="${predictionResult.confidence == 'High' ? 'confidence-high' : (predictionResult.confidence == 'Medium' ? 'confidence-medium' : 'confidence-low')}">
+                    <span class="confidence-dot"></span>
+                    <span th:text="'Confidence: ' + ${predictionResult.confidence}">Confidence: High</span>
+                </div>
+            </div>
+
+            <!-- Feature Summary Cards -->
+            <div class="result-details">
+                <h2 class="details-title">Property Details</h2>
+                <div class="details-grid">
+                    <div class="detail-card">
+                        <div class="detail-icon">📐</div>
+                        <div class="detail-value" th:text="${predictionResult.features.area} + ' sq.ft'">2000 sq.ft</div>
+                        <div class="detail-label">Area</div>
+                    </div>
+                    <div class="detail-card">
+                        <div class="detail-icon">🛏️</div>
+                        <div class="detail-value" th:text="${predictionResult.features.bedrooms}">3</div>
+                        <div class="detail-label">Bedrooms</div>
+                    </div>
+                    <div class="detail-card">
+                        <div class="detail-icon">🚿</div>
+                        <div class="detail-value" th:text="${predictionResult.features.bathrooms}">2</div>
+                        <div class="detail-label">Bathrooms</div>
+                    </div>
+                    <div class="detail-card">
+                        <div class="detail-icon">📅</div>
+                        <div class="detail-value" th:text="${predictionResult.features.age} + ' yrs'">10 yrs</div>
+                        <div class="detail-label">Age</div>
+                    </div>
+                    <div class="detail-card">
+                        <div class="detail-icon">📍</div>
+                        <div class="detail-value" th:text="${predictionResult.features.locationRating} + '/10'">7.0/10</div>
+                        <div class="detail-label">Location</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Prediction Metadata -->
+            <div class="result-meta">
+                <span class="meta-item">
+                    🆔 ID: <strong th:text="${predictionResult.id}">ABC123</strong>
+                </span>
+                <span class="meta-separator">•</span>
+                <span class="meta-item">
+                    🕐 <span th:text="${predictionResult.formattedTimestamp}">May 31, 2026</span>
+                </span>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="result-actions">
+                <a th:href="@{/predict}" class="btn btn-primary" id="btn-predict-again">
+                    🔮 Predict Again
+                </a>
+                <a th:href="@{/dashboard}" class="btn btn-secondary" id="btn-go-dashboard">
+                    📊 View Dashboard
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <div th:replace="~{fragments/footer :: footer}"></div>
+
+    <script th:src="@{/js/app.js}"></script>
+</body>
+</html>

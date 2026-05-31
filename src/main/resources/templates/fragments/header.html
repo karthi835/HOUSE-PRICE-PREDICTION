@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- Reusable Header Fragment — Navbar -->
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <!-- ============ NAVBAR FRAGMENT ============ -->
+    <nav th:fragment="navbar" class="navbar" id="main-navbar">
+        <div class="nav-container">
+            <!-- Logo & Brand -->
+            <a href="/" class="nav-brand">
+                <span class="nav-logo">🏠</span>
+                <span class="nav-title">PricePredictor<span class="nav-title-accent">.AI</span></span>
+            </a>
+
+            <!-- Mobile Menu Toggle -->
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+                <span class="hamburger"></span>
+            </button>
+
+            <!-- Navigation Links -->
+            <ul class="nav-links" id="nav-links">
+                <li><a th:href="@{/}" class="nav-link">Home</a></li>
+                <li><a th:href="@{/predict}" class="nav-link">Predict</a></li>
+                <li><a th:href="@{/dashboard}" class="nav-link">Dashboard</a></li>
+            </ul>
+        </div>
+    </nav>
+</body>
+</html>

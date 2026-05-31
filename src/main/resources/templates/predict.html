@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Enter house details to get an AI-powered price prediction. Input area, bedrooms, bathrooms, age, and location rating.">
+    <title>Predict Price — PricePredictor.AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+</head>
+<body>
+    <!-- Navbar -->
+    <div th:replace="~{fragments/header :: navbar}"></div>
+
+    <!-- ============ PREDICTION FORM SECTION ============ -->
+    <section class="form-section" id="form-section">
+        <div class="container">
+            <div class="section-header">
+                <h1 class="section-title">Predict House <span class="gradient-text">Price</span></h1>
+                <p class="section-subtitle">Enter your property details below and let our AI model estimate the price</p>
+            </div>
+
+            <!-- Error Message Display -->
+            <div th:if="${errorMessage}" class="alert alert-error" id="server-error">
+                <span class="alert-icon">⚠️</span>
+                <span th:text="${errorMessage}">An error occurred</span>
+            </div>
+
+            <!-- Prediction Form -->
+            <div class="form-wrapper">
+                <form th:action="@{/predict}" th:object="${houseFeatures}" method="post" 
+                      class="prediction-form" id="prediction-form" novalidate>
+                    
+                    <div class="form-grid">
+                        <!-- Area Input -->
+                        <div class="form-group" id="group-area">
+                            <label for="area" class="form-label">
+                                <span class="label-icon">📐</span>
+                                Area (sq.ft)
+                            </label>
+                            <input type="number" th:field="*{area}" id="area" 
+                                   class="form-input" placeholder="e.g., 2000"
+                                   min="500" max="10000" step="50" required>
+                            <div class="form-hint">Range: 500 — 10,000 sq.ft</div>
+                            <div th:if="${#fields.hasErrors('area')}" class="form-error" id="error-area">
+                                <span th:errors="*{area}">Area error</span>
+                            </div>
+                        </div>
+
+                        <!-- Bedrooms Input -->
+                        <div class="form-group" id="group-bedrooms">
+                            <label for="bedrooms" class="form-label">
+                                <span class="label-icon">🛏️</span>
+                                Bedrooms
+                            </label>
+                            <input type="number" th:field="*{bedrooms}" id="bedrooms" 
+                                   class="form-input" placeholder="e.g., 3"
+                                   min="1" max="10" step="1" required>
+                            <div class="form-hint">Range: 1 — 10</div>
+                            <div th:if="${#fields.hasErrors('bedrooms')}" class="form-error" id="error-bedrooms">
+                                <span th:errors="*{bedrooms}">Bedrooms error</span>
+                            </div>
+                        </div>
+
+                        <!-- Bathrooms Input -->
+                        <div class="form-group" id="group-bathrooms">
+                            <label for="bathrooms" class="form-label">
+                                <span class="label-icon">🚿</span>
+                                Bathrooms
+                            </label>
+                            <input type="number" th:field="*{bathrooms}" id="bathrooms" 
+                                   class="form-input" placeholder="e.g., 2"
+                                   min="1" max="8" step="1" required>
+                            <div class="form-hint">Range: 1 — 8</div>
+                            <div th:if="${#fields.hasErrors('bathrooms')}" class="form-error" id="error-bathrooms">
+                                <span th:errors="*{bathrooms}">Bathrooms error</span>
+                            </div>
+                        </div>
+
+                        <!-- Age Input -->
+                        <div class="form-group" id="group-age">
+                            <label for="age" class="form-label">
+                                <span class="label-icon">📅</span>
+                                Age (years)
+                            </label>
+                            <input type="number" th:field="*{age}" id="age" 
+                                   class="form-input" placeholder="e.g., 10"
+                                   min="0" max="100" step="1" required>
+                            <div class="form-hint">Range: 0 — 100 years</div>
+                            <div th:if="${#fields.hasErrors('age')}" class="form-error" id="error-age">
+                                <span th:errors="*{age}">Age error</span>
+                            </div>
+                        </div>
+
+                        <!-- Location Rating Input -->
+                        <div class="form-group form-group-full" id="group-locationRating">
+                            <label for="locationRating" class="form-label">
+                                <span class="label-icon">📍</span>
+                                Location Rating
+                            </label>
+                            <div class="range-wrapper">
+                                <input type="range" th:field="*{locationRating}" id="locationRating" 
+                                       class="form-range" min="1" max="10" step="0.5" value="5.0">
+                                <div class="range-display">
+                                    <span class="range-value" id="rating-value">5.0</span>
+                                    <span class="range-label">/ 10</span>
+                                </div>
+                            </div>
+                            <div class="range-labels">
+                                <span>1 — Poor</span>
+                                <span>5 — Average</span>
+                                <span>10 — Excellent</span>
+                            </div>
+                            <div th:if="${#fields.hasErrors('locationRating')}" class="form-error" id="error-locationRating">
+                                <span th:errors="*{locationRating}">Location rating error</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary btn-lg" id="btn-predict">
+                            <span class="btn-text">🔮 Predict Price</span>
+                            <span class="btn-loading" style="display:none;">
+                                <span class="spinner"></span> Predicting...
+                            </span>
+                        </button>
+                        <button type="reset" class="btn btn-secondary" id="btn-reset">
+                            Reset Form
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <div th:replace="~{fragments/footer :: footer}"></div>
+
+    <script th:src="@{/js/app.js}"></script>
+</body>
+</html>

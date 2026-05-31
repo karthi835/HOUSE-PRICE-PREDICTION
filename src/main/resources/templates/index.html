@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AI-Powered House Price Prediction System using Machine Learning. Predict house prices instantly based on area, bedrooms, bathrooms, age, and location.">
+    <title>PricePredictor.AI — AI House Price Prediction</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+</head>
+<body>
+    <!-- Navbar -->
+    <div th:replace="~{fragments/header :: navbar}"></div>
+
+    <!-- ============ HERO SECTION ============ -->
+    <section class="hero" id="hero-section">
+        <div class="hero-bg-animation">
+            <div class="floating-shape shape-1"></div>
+            <div class="floating-shape shape-2"></div>
+            <div class="floating-shape shape-3"></div>
+            <div class="floating-shape shape-4"></div>
+            <div class="floating-shape shape-5"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="badge-icon">✨</span>
+                <span>Powered by Machine Learning</span>
+            </div>
+            <h1 class="hero-title">
+                Predict House Prices<br>
+                <span class="gradient-text">With AI Precision</span>
+            </h1>
+            <p class="hero-description">
+                Our advanced Multiple Linear Regression model analyzes area, bedrooms, 
+                bathrooms, house age, and location rating to deliver accurate price predictions 
+                — all running locally with no external APIs or databases.
+            </p>
+            <div class="hero-buttons">
+                <a th:href="@{/predict}" class="btn btn-primary" id="btn-start-predicting">
+                    <span>Start Predicting</span>
+                    <span class="btn-arrow">→</span>
+                </a>
+                <a th:href="@{/dashboard}" class="btn btn-secondary" id="btn-view-dashboard">
+                    <span>View Dashboard</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ STATS SECTION ============ -->
+    <section class="stats-section" id="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">📊</div>
+                    <div class="stat-number" data-target="200">0</div>
+                    <div class="stat-label">Training Samples</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🎯</div>
+                    <div class="stat-number" data-target="95">0</div>
+                    <div class="stat-label">Accuracy (%)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">⚡</div>
+                    <div class="stat-number" data-target="5">0</div>
+                    <div class="stat-label">Input Features</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🏠</div>
+                    <div class="stat-number" th:text="${totalPredictions}" data-target="0">0</div>
+                    <div class="stat-label">Predictions Made</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ FEATURES SECTION ============ -->
+    <section class="features-section" id="features-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">How It <span class="gradient-text">Works</span></h2>
+                <p class="section-subtitle">Three simple steps to get your property valuation</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-step">01</div>
+                    <div class="feature-icon">📝</div>
+                    <h3>Enter Details</h3>
+                    <p>Input your house features — area, bedrooms, bathrooms, age, and location rating using our intuitive form.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-step">02</div>
+                    <div class="feature-icon">🧠</div>
+                    <h3>AI Predicts</h3>
+                    <p>Our ML model processes your input through a trained Multiple Linear Regression algorithm for instant results.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-step">03</div>
+                    <div class="feature-icon">💰</div>
+                    <h3>Get Price</h3>
+                    <p>View your predicted house price with confidence level, and track all predictions on your personalized dashboard.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ TECH SECTION ============ -->
+    <section class="tech-section" id="tech-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Built With <span class="gradient-text">Modern Tech</span></h2>
+                <p class="section-subtitle">Production-grade architecture with industry-standard tools</p>
+            </div>
+            <div class="tech-grid">
+                <div class="tech-badge">☕ Java 17</div>
+                <div class="tech-badge">🍃 Spring Boot</div>
+                <div class="tech-badge">🧩 Thymeleaf</div>
+                <div class="tech-badge">📈 Linear Regression</div>
+                <div class="tech-badge">📊 Chart.js</div>
+                <div class="tech-badge">🎨 CSS3 Animations</div>
+                <div class="tech-badge">✅ Bean Validation</div>
+                <div class="tech-badge">📁 CSV Data Store</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <div th:replace="~{fragments/footer :: footer}"></div>
+
+    <script th:src="@{/js/app.js}"></script>
+</body>
+</html>
